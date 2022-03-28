@@ -226,10 +226,10 @@ class IngesterRouter(IIngesterRegistry):
         else:
             # Initialize the pre- and post- processors.
             initialized_pre_processors = self.__get_initialized_processors(
-                "INGEST_PAYLOAD_PREPROCESS_SEQUENCE"
+                "VDK_INGEST_PAYLOAD_PREPROCESS_SEQUENCE"
             )
             initialized_post_processors = self.__get_initialized_processors(
-                "INGEST_PAYLOAD_POSTPROCESS_SEQUENCE"
+                "VDK_INGEST_PAYLOAD_POSTPROCESS_SEQUENCE"
             )
 
             self._cached_ingesters[method] = IngesterBase(
