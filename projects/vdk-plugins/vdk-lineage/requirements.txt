@@ -1,0 +1,11 @@
+openlineage-integration-common
+openlineage-python
+pytest
+pytest-httpserver
+sqllineage
+sqlparse
+vdk-core
+vdk-sqlite
+
+# testing:
+vdk-test-utils
