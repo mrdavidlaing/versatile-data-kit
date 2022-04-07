@@ -378,11 +378,13 @@ Unit and integration tests will be introduced by following the official Airflow 
 The communication between VDK Provider and Control Service will be secured through the
 use of HTTPS and OAuth 2.0. The most commonly used OAuth 2.0 flows will be supported (
 e.g. Client Credentials Flow, Refresh Token Flow, etc.) by using `vdk-control-cli`'s authentication
-functionality. This would make `vdk-control-cli` a hard dependency of the Provider, though
-it is possible for the functionality to be moved as a separate library.
+functionality. The functionality would be extracted as a stand-alone
+library, which would make it more concise and lightweight, avoiding the
+installation of unneeded dependencies.
 
-Currently, `vdk-control-cli` fully supports the Refresh Token Flow, and provides partial support for
-the Client Credentials Flow.
+Having a stand-alone authentication library would also allow for the
+implementation of authentication flows like the Client Credentials Flow, that
+would not necessarily be used by vdk-control-cli.
 
 Secrets will be stored as part of the Airflow Connection like follows:
 
@@ -415,14 +417,14 @@ Connection(
   extra=json.dumps(dict(auth_endpoint="<oauth2-authentication-endpoint>"))
 )
 ```
-where the `conn_type` would be "vdk" to identify that this is a Versatile Data Kit Connection.
-For the authentication to be successful, users would need to provide credentials as shown in the tables
-above, and an `extra` parameter pointing to the Authorization Server that would be used.
+where the `conn_type` would be "vdk" to identify that this is a Versatile
+Data Kit Connection. For the authentication to be successful, users would
+need to provide credentials as shown in the tables and the code block above,
+and an `extra` parameter pointing to the Authorization Server that would be
+used.
 
-In terms of security, Airflow uses [Fernet](https://github.com/fernet/spec/) to encrypt passwords in
-connection configurations, which should be sufficient. However, this is where `vdk-control-cli` falls
-short, as it caches the credentials/tokens in plain text. Therefore, some code changes would be required
-to better secure credentials.
+In terms of security, Airflow uses [Fernet](https://github.com/fernet/spec/)
+to encrypt passwords in connection configurations, which should be sufficient.
 
 
 <!--
